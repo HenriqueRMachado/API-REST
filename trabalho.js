@@ -11,6 +11,9 @@ app.use(express.json());
 let cursos = [
     { id: 1, name: "Engenharia de Software"},
     { id: 2, name: "Sistemas de Informação"},
+    { id: 3, name: "Psicologia"},
+    { id: 4, name: "Educação Física"},
+    { id: 5, name: "Engenharia Química"},
 ];
 
 //Mapa de itens
