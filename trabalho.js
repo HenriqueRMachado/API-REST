@@ -38,7 +38,7 @@ app.get('/curso', (req, res) => {
 //Endpoint para buscar um item específico pelo ID, método GET
 app.get('/curso/:id', (req, res) => {
     const id = parseInt(req.params.id);
-    const curso = cursos.find(item => item.id === id);
+    const curso = cursos.find(curso => curso.id === id);
 
 
     //se o item existir, retorna com status 200
@@ -51,7 +51,7 @@ app.get('/curso/:id', (req, res) => {
         link: generationItemLink(curso),
     }));
 
-        res.status(200).json(response);
+        res.status(200).json(response[id - 1]);
     } else {
         res.status(404).json({ message: "Item não encontrado" });
     }
@@ -59,6 +59,11 @@ app.get('/curso/:id', (req, res) => {
 
 // Endpoint para adicionar um novo item, método POST
 app.post('/curso', (req, res) => {
+
+    //Validação para garantir que o campo 'name' não seja vazio
+    if (!req.body.name || req.body.name.trim() === "") {
+        return res.status(422).json({ message: "O campo 'name' não pode ser vazio." });
+    }
     //os arrays tem uma propriedade chamada length... essa propriedade calcula o tamanho
     //do meu vetor e retorna ele em formato de inteiro...
     const newItem = { id: cursos.length + 1, ...req.body}
@@ -68,12 +73,12 @@ app.post('/curso', (req, res) => {
 });
 
 //Endpoint para apagar um item, método DELETE
-app.delete('/cursos/:id', (req, res) => {
+app.delete('/curso/:id', (req, res) => {
     const id = parseInt(req.params.id);
-    const index = cursos.findIndex(item => item.id === id);
+    const index = cursos.findIndex(curso => curso.id === id);
     if(index !== -1) {
         //desafio remover o item do array
-        items.splice(index, 1);
+        cursos.splice(index, 1);
         res.status(200).json({mensage: "Item removido!"});
     } else {
         res.status(404).json({mensage: "Item não encontrado"});
@@ -84,7 +89,7 @@ app.delete('/cursos/:id', (req, res) => {
 
 app.put('/curso/:id', (req, res) => {
     const id = parseInt(req.params.id);
-    const index = cursos.findIndex(item => item.id === id);
+    const index = cursos.findIndex(curso => curso.id === id);
     
     // 8 - Validação para garantir que o campo 'name' não seja vazio
     if (!req.body.name || req.body.name.trim() === "") {
@@ -110,9 +115,23 @@ let alunos = [
     { id: 4, name: "Camilli"},
     { id: 5, name: "Gustavo"},
 ];
+
+//Mapa de itens
+function generationItemLink(aluno) {
+    return {
+        self: { href: `/aluno/${aluno.id}`},
+        update: { href: `/aluno/${aluno.id}`, method: "PUT"},
+        delete: { href: `/aluno/${aluno.id}`, method: "DELETE"}
+    }
+}
+
 //Endpoint para buscar todos os itens da lista, método GET
 app.get('/aluno', (req, res) => {
-    res.status(200).json(alunos);
+    const response = alunos.map(aluno => ({
+        ...aluno,
+        link: generationItemLink(aluno),
+    }));
+    res.status(200).json(response);
 });
 
 //Endpoint para buscar um item específico pelo ID, método GET
@@ -124,7 +143,13 @@ app.get('/aluno/:id', (req, res) => {
     //se não existir, retorna status 404 com uma mensagem de erro
 
     if (aluno) {
-        res.status(200).json(aluno);
+
+        const response = alunos.map(aluno => ({
+        ...aluno,
+        link: generationItemLink(aluno),
+    }));
+
+        res.status(200).json(response[id - 1]);
     } else {
         res.status(404).json({ message: "Item não encontrado" });
     }
@@ -134,7 +159,7 @@ app.get('/aluno/:id', (req, res) => {
 app.post('/aluno', (req, res) => {
     //os arrays tem uma propriedade chamada length... essa propriedade calcula o tamanho
     //do meu vetor e retorna ele em formato de inteiro...
-    const newItem = { id: items.length + 1, ...req.body}
+    const newItem = { id: alunos.length + 1, ...req.body}
     //push insere um novo item no vetor...
     alunos.push(newItem);
     res.status(201).json(newItem);
