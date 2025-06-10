@@ -1,6 +1,7 @@
-const express = require('express')
+
+const express = require('express') // utilização do express
 const app = express()
-const port = 3000
+const port = 3000 // define a porta do localhost
 
 //Indica ao servior que iremos trabalhar com JSON 
 app.use(express.json());
@@ -9,11 +10,27 @@ app.use(express.json());
     Simula um banco de dados
 */ 
 let cursos = [
-    { id: 1, name: "Engenharia de Software"},
-    { id: 2, name: "Sistemas de Informação"},
-    { id: 3, name: "Psicologia"},
-    { id: 4, name: "Educação Física"},
-    { id: 5, name: "Engenharia Química"},
+    { id: 1, name: "Engenharia de Software", CargaHoraria: "4000", Universidade: "Univille"},
+    { id: 2, name: "Sistemas de Informação", CargaHoraria: "4000", Universidade: "USP"},
+    { id: 3, name: "Psicologia", CargaHoraria: "3500", Universidade: "UFSC"},
+    { id: 4, name: "Educação Física", CargaHoraria: "4000", Universidade: "Univille"},
+    { id: 5, name: "Engenharia Química", CargaHoraria: "4500", Universidade: "UDESC"},
+];
+
+let alunos = [
+    { id: 1, name: "Lucas", email: "lucas@gmail.com", matricula: 2983428374, telefone: 4002-8922},
+    { id: 2, name: "Henrique", email: "henrique@gmail.com", matricula: 234234267, telefone: 4002-8922},
+    { id: 3, name: "Marcelo", email: "marcelo@gmail.com", matricula: 3284237843, telefone: 4002-8922},
+    { id: 4, name: "Camilli", email: "camilli@gmail.com", matricula: 7394237642, telefone: 4002-8922},
+    { id: 5, name: "Gustavo", email: "gustavo@gmail.com", matricula: 9834826344, telefone: 4002-8922},
+];
+
+let professores = [
+    {id: 1, nome: "roberson", periodo: "1 semestre", disciplina: "matematica discreta"},
+    {id: 2, nome: "andressa", periodo: "3 semestre", disciplina: "desenvolvimento web"},
+    {id: 3, nome: "andrei", periodo: "2 e 3 semestre", disciplina: "banco de dados"},
+    {id: 4, nome: "lucia", periodo: "5 e 6 semestre", disciplina: "rede de computadores"},
+    {id: 4, nome: "marcos", periodo: "3 e 4 semestre", disciplina: "algoritmo"},
 ];
 
 //Mapa de itens
@@ -108,13 +125,7 @@ app.put('/curso/:id', (req, res) => {
 //Recurso alunos
 
 
-let alunos = [
-    { id: 1, name: "Lucas"},
-    { id: 2, name: "Henrique"},
-    { id: 3, name: "Marcelo"},
-    { id: 4, name: "Camilli"},
-    { id: 5, name: "Gustavo"},
-];
+
 
 //Mapa de itens
 function generationItemLink(aluno) {
@@ -177,6 +188,8 @@ app.delete('/aluno/:id', (req, res) => {
         res.status(404).json({mensage: "Item não encontrado"});
     }
 });
+
+
 
 //Endpoint para atualizar itens da lista, método PUT
 
