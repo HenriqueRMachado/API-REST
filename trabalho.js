@@ -9,6 +9,7 @@ app.use(express.json());
 /*
     Simula um banco de dados
 */ 
+
 let cursos = [
     { id: 1, name: "Engenharia de Software", CargaHoraria: "4000", Universidade: "Univille"},
     { id: 2, name: "Sistemas de Informação", CargaHoraria: "4000", Universidade: "USP"},
@@ -33,7 +34,35 @@ let professores = [
     {id: 4, nome: "marcos", periodo: "3 e 4 semestre", disciplina: "algoritmo"},
 ];
 
-//Mapa de itens
+
+// metodo get do ep professores
+app.get('/professores/:id', (req, res) => {
+    const id = parseInt(req.params.id);
+    const prof = professores.find(prof => prof.id === id);
+
+    if (prof) {
+
+        const response = professores.map(prof => ({
+        ...prof,
+        link: generationItemLink(prof),
+    }));
+
+        res.status(200).json(response[id - 1]);
+    } else {
+        res.status(404).json({ message: "Item não encontrado" });
+    }
+});
+
+// GPS DE ITENS DO ENDPOINT DE PROFESSORES
+function generationItemLink(prof) {
+    return {
+        self: { href: `/professores/${prof.id}`},
+        update: { href: `/professores/${prof.id}`, method: "PUT"},
+        delete: { href: `/professores/${prof.id}`, method: "DELETE"}
+    }
+}
+
+//Mapa de itens  
 function generationItemLink(curso) {
     return {
         self: { href: `/curso/${curso.id}`},
@@ -42,6 +71,7 @@ function generationItemLink(curso) {
     }
 }
 
+// ENDPOINT DO BANCO DE DADOS CURSOS
 
 //Endpoint para buscar todos os itens da lista, método GET
 app.get('/curso', (req, res) => {
@@ -78,8 +108,14 @@ app.get('/curso/:id', (req, res) => {
 app.post('/curso', (req, res) => {
 
     //Validação para garantir que o campo 'name' não seja vazio
-    if (!req.body.name || req.body.name.trim() === "") {
+    if (!req.body.name) {
         return res.status(422).json({ message: "O campo 'name' não pode ser vazio." });
+    }
+    else if (!req.body.CargaHoraria) {
+        return res.status(422).json({ message: "O campo 'CargaHoraria' não pode ser vazio." });
+    }
+    else if (!req.body.Universidade ) {
+        return res.status(422).json({ message: "O campo 'Universidade' não pode ser vazio." });
     }
     //os arrays tem uma propriedade chamada length... essa propriedade calcula o tamanho
     //do meu vetor e retorna ele em formato de inteiro...
@@ -121,6 +157,8 @@ app.put('/curso/:id', (req, res) => {
     }
 
 });
+
+
 
 //Recurso alunos
 
