@@ -1,4 +1,3 @@
-
 const express = require('express') // utilização do express
 const app = express()
 const port = 3000 // define a porta do localhost
@@ -53,12 +52,25 @@ app.get('/professores/:id', (req, res) => {
     }
 });
 
+
+
+
+function generationItemLink(prof) {
+    return {
+        self: { href: `/professores/${prof.id}`},
+        update: { href: `/professores/${prof.id}`, method: "PUT"},
+        delete: { href: `/professores/${prof.id}`, method: "DELETE"},
+        post: {href: `/professores${prof.id}`, method: "POST"}
+    }
+}
+
 // GPS DE ITENS DO ENDPOINT DE PROFESSORES
 function generationItemLink(prof) {
     return {
         self: { href: `/professores/${prof.id}`},
         update: { href: `/professores/${prof.id}`, method: "PUT"},
-        delete: { href: `/professores/${prof.id}`, method: "DELETE"}
+        delete: { href: `/professores/${prof.id}`, method: "DELETE"},
+        post: {href: `/professores${prof.id}`, method: "POST"}
     }
 }
 
@@ -67,7 +79,8 @@ function generationItemLink(curso) {
     return {
         self: { href: `/curso/${curso.id}`},
         update: { href: `/curso/${curso.id}`, method: "PUT"},
-        delete: { href: `/curso/${curso.id}`, method: "DELETE"}
+        delete: { href: `/curso/${curso.id}`, method: "DELETE"},
+        post: {href: `/curso${curso.id}`, method: "POST"}
     }
 }
 
