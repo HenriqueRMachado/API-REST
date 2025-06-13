@@ -1,3 +1,4 @@
+
 const express = require('express') // utilização do express
 const app = express()
 const port = 3000 // define a porta do localhost
@@ -26,15 +27,28 @@ let alunos = [
 ];
 
 let professores = [
-    {id: 1, nome: "roberson", periodo: "1 semestre", disciplina: "matematica discreta"},
-    {id: 2, nome: "andressa", periodo: "3 semestre", disciplina: "desenvolvimento web"},
-    {id: 3, nome: "andrei", periodo: "2 e 3 semestre", disciplina: "banco de dados"},
-    {id: 4, nome: "lucia", periodo: "5 e 6 semestre", disciplina: "rede de computadores"},
-    {id: 4, nome: "marcos", periodo: "3 e 4 semestre", disciplina: "algoritmo"},
+    {id: 1, nome: "Roberson", periodo: "1 semestre", disciplina: "Matematica Discreta"},
+    {id: 2, nome: "Andressa", periodo: "3 semestre", disciplina: "Desenvolvimento Web"},
+    {id: 3, nome: "Andrei", periodo: "2 e 3 semestre", disciplina: "Banco de Dados"},
+    {id: 4, nome: "Lucia", periodo: "5 e 6 semestre", disciplina: "Rede de Computadores"},
+    {id: 4, nome: "Marcos", periodo: "3 e 4 semestre", disciplina: "Algoritmo"},
 ];
 
 
-// metodo get do ep professores
+
+
+// GET ALL
+
+app.get('/professores', (req, res) => {
+    const response = professores.map(prof => ({
+        ...prof,
+        link: generationItemLink(prof),
+    }));
+    res.status(200).json(response);
+});
+
+
+// VERBO get do ep professores
 app.get('/professores/:id', (req, res) => {
     const id = parseInt(req.params.id);
     const prof = professores.find(prof => prof.id === id);
@@ -51,8 +65,6 @@ app.get('/professores/:id', (req, res) => {
         res.status(404).json({ message: "Item não encontrado" });
     }
 });
-
-
 
 
 function generationItemLink(prof) {
