@@ -93,7 +93,7 @@ app.post('/professores', (req, res) => {
     }
     //os arrays tem uma propriedade chamada length... essa propriedade calcula o tamanho
     //do meu vetor e retorna ele em formato de inteiro...
-    const newItem = { id: cursos.length + 1, ...req.body}
+    const newItem = { id: professores.length + 1, ...req.body}
     //push insere um novo item no vetor...
     professores.push(newItem);
     res.status(201).json(newItem);
@@ -148,7 +148,8 @@ app.put('/professores/:id', (req, res) => {
 
 
 
-//Mapa de itens  
+// GPS DE ITENS
+
 function linkcurso(curso) {
     return {
         self: { href: `/curso/${curso.id}`},
@@ -158,9 +159,11 @@ function linkcurso(curso) {
     }
 };
 
+
 // ENDPOINT DO BANCO DE DADOS CURSOS
 
 //Endpoint para buscar todos os itens da lista, método GET
+
 app.get('/curso', (req, res) => {
     const response = cursos.map(curso => ({
         ...curso,
@@ -247,10 +250,10 @@ app.put('/curso/:id', (req, res) => {
 
 
 
-//Recurso alunos
+// ENDPOINT
 
 
-
+// VERIFICAR ESSES METODOS DO ENDPOINT DO ALUNOS
 
 //Mapa de itens
 function linkaluno(aluno) {
