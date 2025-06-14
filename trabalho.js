@@ -274,10 +274,10 @@ app.patch('/curso/:id', (req, res) => {
 // GPS DE ITENS DO ENDPOINT DE ALUNOS
 function linkaluno(aluno) { // Função que cria links para os alunos
 return { //retorna um objeto com os links
-    self: { href: `/aluno/${aluno.id}`},
-    update: { href: `/aluno/${aluno.id}`, method: "PUT"},
-    delete: { href: `/aluno/${aluno.id}`, method: "DELETE"},
-    post: {href: `/aluno`, method: "POST"},
+    self: { href: `/aluno/${aluno.id}`}, // link para o próprio aluno
+    update: { href: `/aluno/${aluno.id}`, method: "PUT"}, // link para atualizar o aluno
+    delete: { href: `/aluno/${aluno.id}`, method: "DELETE"}, // link para deletar o aluno
+    post: {href: `/aluno`, method: "POST"}, // link para criar um novo aluno
     patch: {href: `/aluno/${aluno.id}`, method: "PATCH"} // link para fazer atualizações parciais
 }
 };
