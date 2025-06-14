@@ -44,7 +44,7 @@ return {
     update: { href: `/professores/${prof.id}`, method: "PUT"}, // link para atualizar o item
     delete: { href: `/professores/${prof.id}`, method: "DELETE"}, // link para deletar o item
     post: {href: `/professores`, method: "POST"}, // link para criar um novo item
-    patch: {href: `/curso`, method: "PATCH"} // link para fazer atualizações parciais
+    patch: {href: `/professores/${prof.id}`, method: "PATCH"} // link para fazer atualizações parciais
 }
 };
 
@@ -164,7 +164,7 @@ return {
     update: { href: `/curso/${curso.id}`, method: "PUT"}, // link para atualizar o curso
     delete: { href: `/curso/${curso.id}`, method: "DELETE"}, // link para deletar o curso
     post: {href: `/curso`, method: "POST"}, // link para criar um novo curso
-    patch: {href: `/curso`, method: "PATCH"} // link para fazer atualizações parciais
+    patch: {href: `/curso/${curso.id}`, method: "PATCH"} // link para fazer atualizações parciais
 }
 };
 
@@ -278,7 +278,7 @@ return { //retorna um objeto com os links
     update: { href: `/aluno/${aluno.id}`, method: "PUT"},
     delete: { href: `/aluno/${aluno.id}`, method: "DELETE"},
     post: {href: `/aluno`, method: "POST"},
-    patch: {href: `/curso`, method: "PATCH"} // link para fazer atualizações parciais
+    patch: {href: `/aluno/${aluno.id}`, method: "PATCH"} // link para fazer atualizações parciais
 }
 };
 
