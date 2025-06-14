@@ -139,9 +139,9 @@ app.patch('/professores/:id', (req, res) => {
     if (professores[id - 1]) {
         // Atualiza apenas os campos enviados no body
         professores[id - 1] = { ...professores[id - 1], ...req.body};
-        res.status(200).json(professores[id - 1]);
+        res.status(200).json(professores[id - 1]); // retorna o professor atulizado com status 200 (OK)
     } else {
-        res.status(404).json({ message: "Item não encontrado!" });
+        res.status(404).json({ message: "Item não encontrado!" }); // retorna erro 404 (item não encontrado), se o professor não for encontrado
     }
 });
 
@@ -257,9 +257,9 @@ app.patch('/curso/:id', (req, res) => {
     if (cursos[id - 1]) {
         // Atualiza apenas os campos enviados no body
         cursos[id - 1] = { ...cursos[id - 1], ...req.body};
-        res.status(200).json(cursos[id - 1]);
+        res.status(200).json(cursos[id - 1]); // retorna o curso atulizado com status 200 (OK)
     } else {
-        res.status(404).json({ message: "Item não encontrado!" });
+        res.status(404).json({ message: "Item não encontrado!" }); // retorna erro 404 (item não encontrado), se o curso não for encontrado
     }
 });
 
@@ -378,10 +378,10 @@ app.patch('/aluno/:id', (req, res) => {
     if (alunos[id - 1]) {
         // Atualiza apenas os campos enviados no body
         alunos[id - 1] = { ...alunos[id - 1], ...req.body};
-        res.status(200).json(alunos[id - 1]);
+        res.status(200).json(alunos[id - 1]); // retorna o aluno atulizado com status 200 (OK)
     } else {
-        res.status(404).json({ message: "Item não encontrado!" });
-    }
+        res.status(404).json({ message: "Item não encontrado!" }); // retorna erro 404 (item não encontrado), se o aluno não for encontrado
+    } 
 });
 
 // listener da porta do servidor (porta 3000)
