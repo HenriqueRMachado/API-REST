@@ -43,7 +43,8 @@ return {
     self: { href: `/professores/${prof.id}`}, // link para o próprio item
     update: { href: `/professores/${prof.id}`, method: "PUT"}, // link para atualizar o item
     delete: { href: `/professores/${prof.id}`, method: "DELETE"}, // link para deletar o item
-    post: {href: `/professores`, method: "POST"} // link para criar um novo item
+    post: {href: `/professores`, method: "POST"}, // link para criar um novo item
+    patch: {href: `/curso`, method: "PATCH"} // link para fazer atualizações parciais
 }
 };
 
@@ -132,7 +133,17 @@ if (index !== -1) { // se o professor for encontrado
 
 });
 
-
+//Endpoint para fazer atualizações parciais, método PATCH
+app.patch('/professores/:id', (req, res) => {
+    const id = parseInt(req.params.id);
+    if (professores[id - 1]) {
+        // Atualiza apenas os campos enviados no body
+        professores[id - 1] = { ...professores[id - 1], ...req.body};
+        res.status(200).json(professores[id - 1]);
+    } else {
+        res.status(404).json({ message: "Item não encontrado!" });
+    }
+});
 
 
 
@@ -152,7 +163,8 @@ return {
     self: { href: `/curso/${curso.id}`}, // link para o próprio curso
     update: { href: `/curso/${curso.id}`, method: "PUT"}, // link para atualizar o curso
     delete: { href: `/curso/${curso.id}`, method: "DELETE"}, // link para deletar o curso
-    post: {href: `/curso`, method: "POST"} // link para criar um novo curso
+    post: {href: `/curso`, method: "POST"}, // link para criar um novo curso
+    patch: {href: `/curso`, method: "PATCH"} // link para fazer atualizações parciais
 }
 };
 
@@ -239,7 +251,17 @@ if (index !== -1) {  // se o curso for encontrado
 
 });
 
-
+//Endpoint para fazer atualizações parciais, método PATCH
+app.patch('/curso/:id', (req, res) => {
+    const id = parseInt(req.params.id);
+    if (cursos[id - 1]) {
+        // Atualiza apenas os campos enviados no body
+        cursos[id - 1] = { ...cursos[id - 1], ...req.body};
+        res.status(200).json(cursos[id - 1]);
+    } else {
+        res.status(404).json({ message: "Item não encontrado!" });
+    }
+});
 
 
 
@@ -255,7 +277,8 @@ return { //retorna um objeto com os links
     self: { href: `/aluno/${aluno.id}`},
     update: { href: `/aluno/${aluno.id}`, method: "PUT"},
     delete: { href: `/aluno/${aluno.id}`, method: "DELETE"},
-    post: {href: `/aluno`, method: "POST"}
+    post: {href: `/aluno`, method: "POST"},
+    patch: {href: `/curso`, method: "PATCH"} // link para fazer atualizações parciais
 }
 };
 
@@ -349,8 +372,20 @@ if (index !== -1) { // se o aluno for encontrado
 
 });
 
+//Endpoint para fazer atualizações parciais, método PATCH
+app.patch('/aluno/:id', (req, res) => {
+    const id = parseInt(req.params.id);
+    if (alunos[id - 1]) {
+        // Atualiza apenas os campos enviados no body
+        alunos[id - 1] = { ...alunos[id - 1], ...req.body};
+        res.status(200).json(alunos[id - 1]);
+    } else {
+        res.status(404).json({ message: "Item não encontrado!" });
+    }
+});
 
 // listener da porta do servidor (porta 3000)
 app.listen(port, () => {
 console.log(`O servidor está rodando em http://localhost:${port}`);
 });
+
